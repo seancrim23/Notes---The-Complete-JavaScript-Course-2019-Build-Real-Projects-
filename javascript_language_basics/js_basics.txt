@@ -114,4 +114,22 @@ CREATING JAVASCRIPT OBJECTS:
 		randomObject.randomField = random;
 		randomObject.randomField2 = random;
 		randomObject.randomField3 = random;
+		
+FOR LOOP IN JAVASCRIPT:
+	
+	Ex. Print 0 to 9
+	
+	for(var i = 0; i <= 9; i++){ console.log(i); }
+	
+WHILE LOOP IN JAVASCRIPT:
+
+	Same format as normal Java.
+		
+		Ex. print 0 to 9
+		
+		var i = 0;
+		while(i < 10){
+			do_something;
+			i++;
+		}
 	
