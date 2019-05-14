@@ -6,3 +6,4 @@ Likely I will be keeping an index for each section of the course with my corresp
 Index:
 
 1 - javascript_language_basics (just that, from defining variables to about loops and iteration and everything in between - all of the information I think should be remembered)
+2 - javascript_behind_the_scenes

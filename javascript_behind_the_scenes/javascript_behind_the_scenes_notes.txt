@@ -1,0 +1,69 @@
+******************************************************************
+JavaScript - Behind the scenes									 *
+******************************************************************
+
+JAVASCRIPT ENGINE - executes javascript code 
+
+	1. PARSER - validates syntax is correct, throws error if bad syntax. produces a data structure called abstract syntax tree. 
+	2. CONVERSION TO MACHINE CODE - converts the abstract syntax tree data to machine code.
+	3. CODE RUNS
+	
+EXECUTION CONTEXT
+	
+	- A box/container which stores variables and in which a piece of code is evaluated and executed.
+	
+	DEFAULT/GLOBAL EXECUTION CONTEXT:
+		
+		-not inside any function
+		-associated with global object
+		-in browser, that is window object Ex. lastName === window.lastName //evaluates to true
+		
+HOISTING:
+
+	1. Code is scanned for function declarations: for each function -> property gets created in Variable Object pointing to the function
+	2. Code scanned for variable declarations: for each variable -> property created in Variable Object set to undefined
+	
+	Ex. (despite the function being called first, hoisting makes sure the calculateAge is added to the execution context. because of this,
+	the calculateAge function will still run properly.) works for FUNCTION DECLARATIONS
+	
+	calculateAge(2000);
+	
+	function calculateAge(year){
+		console.log(2016 - year);
+	}
+	
+	Ex2. DOES NOT WORK FOR FUNCTION EXPRESSIONS - below will not work!
+	
+	retirement(1201);
+	
+	var retirement = function(year){
+		console.log(65 - (2016 - year));
+	}
+	
+	BIGGEST TAKEAWAY - Can reference functions before they are even declared in our code with hoisting. (ONLY FUNCTION DECLARATIONS)
+
+SCOPING IN JAVASCRIPT
+
+	EX. 
+	
+	var a = 'hello!';
+	first();
+	
+	function first(){
+		var b = 'Hi!';
+		second();
+		
+		function second(){
+			var c = 'Hey!';
+			console.log(a + b + c);
+		}
+	}
+	All of the above falls into the Global Scope. The "first" function then creates another scope. The scope of this includes members of the function itself and the parent (first function + global).
+	The "second" function then creates the final scope. It includes members of the function itself and all of it's parents (second function + first function + global).
+	
+METHOD BORROWING:
+	
+	Define a function inside one object and assign that function to a new function inside of a different object.
+	
+	EX: mike.calculateAge = john.calculateAge; //this will assign the calculateAge from the john object to the new calculateAge function in the mike object
+	mike.calculateAge(); //then the function can be called normally after it has been assigned (given all of the member variables exist in the new object that exist in the function)
