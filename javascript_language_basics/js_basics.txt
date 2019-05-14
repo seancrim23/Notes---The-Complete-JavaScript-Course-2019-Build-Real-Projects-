@@ -1,0 +1,117 @@
+******************************************************************
+JavaScript Basic Concepts										 *
+******************************************************************
+
+TWO WAYS to include JavaScript on an HTML page:
+
+1 - inline 
+	
+	The actual JavaScript code will be defined inside of the <script> element tag.
+	
+		<script>console.log('hello world');</script> 
+
+2 - import an external library
+
+	The actual JavaScript code will be defined in an external JavaScript file and be imported into the desired HTML page (THE PREFERRED METHOD).
+	
+		<script src="whereever/the/js/file/is.js"></script>
+		
+WHAT IS JAVASCRIPT?
+			
+	- lightweight, cross-platform, object-oriented programming language.
+
+WHERE CAN JAVASCRIPT BE USED?
+
+	- Client-side: JavaScript was typically only used in the browser (front-end)
+	- Server-side: JavaScript (node.js) allows us to also use JavaScript on a server (back-end)
+
+NOUN/ADJECTIVE/VERB Web Programming Relationship:
+
+	- HTML - NOUN: Provides the content. Ex. <p></p> means "paragraph"
+	- CSS - ADJECTIVE: Provides the description. Ex. p {color: red;} means "the paragraph text is red"
+	- JAVASCRIPT - VERB: Provides the effects/What happens to the object. Ex. p.hide() means "hide the paragraph"
+	
+PRIMITIVE JAVASCRIPT DATA TYPES (NON-OBJECT DATA TYPE):
+	
+	- Number
+	- String
+	- Boolean
+	- Undefined
+	- NULL
+	
+	- JavaScript typing is dynamic! Data Types are automatically assigned to variables.
+	
+HOW TO READ INPUT FROM A USER OF A BASIC JAVASCRIPT PAGE (probably not used very often but I think would be useful for very basic games):
+
+	- var storageVariable = prompt('Whatever the input question is?');
+
+BASIC IF/ELSE STRUCTURE (SAME/SIMILAR AS OTHER OO PROGRAMMING LANGUAGES):
+	
+	if(logical_statement_returning_true_or_false){
+	
+	}else if(logical_statement_returning_true_or_false){
+	
+	}else{
+	
+	}
+	
+TERNARY OPERATOR (USED FOR IF/ELSE LOGIC):
+
+	- appears to be a bit more compact than a typically if/else block.
+	- can use this to set variable values based on a condition
+	
+	- SYNTAX:
+		
+		logical_statement_returning_true_or_false ? do_something : do_something_else (the colon represents the "else" block)
+		
+		Ex.
+			age >= 18 ? console.log('beer') : console.log('juice');
+			
+			var drink = age >= 18 ? 'beer' : 'juice';
+			
+FALSY/TRUTHY VALUES:
+
+	Falsy - All of the following will be evaluated as False in an if/else statement condition.
+		- undefined, null, 0, '', NaN
+		
+	Truthy - NOT falsy values.
+	
+FUNCTION SYNTAX:
+
+	***THIS IS A FUNCTION DECLARATION***
+	- function functionName(arguments (or blank)){
+		function_body
+		
+		return something;
+	}
+	
+	Ex. function calculateAge(birthYear){
+		return 2018 - birthYear;
+	}
+	
+FUNCTION EXPRESSION:
+
+	EX. var randomVar = function(x, y){
+		do_something...;
+		return something;
+		}
+		
+		These are called the same way as a function declaration. (function_name(args))
+		
+CREATING JAVASCRIPT OBJECTS:
+
+	Either initialize as an empty object or fill it on declaration:
+		
+		var randomObject = {
+				randomField = random,
+				randomField2 = random,
+				randomField3 = random
+		}
+		
+		OR
+		
+		var randomObject = new Object();
+		randomObject.randomField = random;
+		randomObject.randomField2 = random;
+		randomObject.randomField3 = random;
+	
