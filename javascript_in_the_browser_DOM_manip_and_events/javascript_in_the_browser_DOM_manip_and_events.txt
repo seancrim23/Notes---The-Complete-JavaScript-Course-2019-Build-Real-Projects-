@@ -1,0 +1,44 @@
+**********************************************************************
+JS in the browser: DOM Manipulation and Events						 *
+**********************************************************************
+
+DOM - Document Object Model:
+
+	- structured representation of an HTML document
+	- used to connect webpages to scripts like JS
+	- for each HTML box, there is an object in the DOM we can interact with
+	
+MATH Library: (using for rolling dice)
+
+	MATH.random
+	Math.floor (cuts decimal)
+	
+Interaction with the DOM:
+
+	can use the document.querySelector() function:
+		- can pass in #whatever_the_id_is to querySelector to grab the element with the corresponding ID
+		- can pass in .whatever_the_class_is to querySelector to grab the element with the corresponding class
+			once the element is selected, one can make use of the library functions in order to change the element, whether it be the text value of the element or even the style of the element
+			
+	Changing the value/style/etc of the element is referred to as "SETTING" whereas grabbing the value/etc from the element and saving it to a variable is "GETTING".
+
+WHAT ARE EVENTS? HOW ARE THEY RELATED TO THE DOM?
+
+		Events - notifications that are sent to notify the code that something happened on the webpage
+			ex. clicking a button, resizing a window, scrolling down, pressing a key, etc
+			
+			-these are related to the DOM as they can be integrated with the DOM to perform actions when specific events happened
+				EX. when i click some element on the page, a function fires
+
+		Event Listener - function that performs an action based on a certain event, LISTENS FOR EVENT, DOES SOMETHING WHEN EVENT HAPPENS
+		
+ANONYMOUS FUNCTION - function that only exists in the scope of a listener
+
+	EX. document.querySelector('.some-class').addEventListener('click', function(){
+		//do something...
+	});
+	
+	because this function is not defined elsewhere with a proper name, it can only be fired when the HTML element that has been selected is clicked on.
+	
+			
+	
