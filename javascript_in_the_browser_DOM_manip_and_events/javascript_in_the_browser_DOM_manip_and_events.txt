@@ -40,5 +40,22 @@ ANONYMOUS FUNCTION - function that only exists in the scope of a listener
 	
 	because this function is not defined elsewhere with a proper name, it can only be fired when the HTML element that has been selected is clicked on.
 	
+	Otherwise you can pass a function defined in the same scope to the listener to be fired when the event happens.	
+
+TERNARY OPERATOR
+
+		alternate way of performing if statement (more compact)
+			EX. activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
 			
+			same as
+			
+			if(activePlayer === 0){
+				activePlayer = 1;
+			}else{
+				activePlayer = 0;
+			}
+			
+STATE VARIABLES:
+
+	can be defined to keep track of different states of an application. different states = application does different things
 	
