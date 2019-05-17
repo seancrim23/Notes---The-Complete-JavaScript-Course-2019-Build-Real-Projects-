@@ -9,4 +9,5 @@ Likely I will be keeping an index for each section of the course with my corresp
 <li>javascript_language_basics (just that, from defining variables to about loops and iteration and everything in between - all of the information I think should be remembered)</li>
 <li>javascript_behind_the_scenes<br></li>
 <li>javascript_in_the_browser_DOM_manip_and_events</li>
+<li>advanced javascript - objects_and_functions</li>
 </ol>

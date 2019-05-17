@@ -1,0 +1,166 @@
+**************************************************************************
+JavaScript Objects and functions										 *
+**************************************************************************
+
+OBJECT INHERITANCE - One object inherits and uses the members of another object
+
+	Ex. PERSON and ATHLETE object. instead of repeating PERSON properties inside of the ATHLETE object, the ATHLETE object can inherit the person object to store the name, yearOfBirth, job, age
+	of the PERSON.
+	
+		var Person = new Object();
+		Person.name;
+		Person.yearOfBirth;
+		Person.job;
+		Person.calculateAge = function(){
+		};
+		
+		var Athlete = new Object();
+		ATHLETE.Person.name; etc
+		Athlete.athleteInfo....;
+		
+PROTOTYPES IN JAVASCRIPT:
+
+	- makes inheritance possible!!! every object has this!!!
+	- the prototype property is where we put functions and objects/etc that we want other objects to inherit
+	
+THE PROTOTYPE CHAIN:
+
+	- all of the objects that are linked together by inheritance from the most specific object -> more general object -> the built in JavaScript Object
+	- each step up the chain becomes less specific until the built in JavaScript Object is reached
+	
+	john -> Person -> Object
+		
+		the john object at the bottom of the chain can go all the way up to the Object object and inherit functions from it (hasOwnProperty(), constructor(), etc)
+		
+FUNCTION CONSTRUCTOR:
+
+	-a function that allows us to create specific implementations of generic objects (creating a person "John" using a "Person" class)
+	
+	Ex. we want to be able to create objects of "Person" class:
+	
+	var Person  = function(whatever, parameters, you, want, to, store, for, a, person){
+		this.parameter1 = parameter1;
+		...
+		this.parameterN = parameterN;
+	};
+	
+	var john = new Person(parameters, specific, to, john); //instantiating the object (john is an instance of Person)
+		- the "new" keyword creates an empty object, makes it that "this" points to new Object rather than the Global Object
+
+Object.create - alternate way to create an object. (however to me personally reads in a more complicated manner than a function constructor so i'll be using function constructors):
+
+	Ex. add prototype with a function to objects created with Object.create
+		
+		var personProto = {
+			calculateAge: function(){
+				console.log(2016 - this.yearOfBirth);
+			}
+		};
+		
+		var john = Object.create(personProto);
+		john.name = 'john';
+		john.yearOfBirth = 1990;
+		john.job = 'teacher';
+		
+			not sure the use case for this unless for some reason each person object should have different member variables... will look for any reasonable use cases. function constructors seem like the more readable option for performing this task
+			
+NESTING FUNCTIONS WITHIN OTHER FUNCTIONS:
+
+	- self explanatory, pass a different function directly into a function as an argument and use it. 
+	ex. function randomFunction(arr, anotherFunction){
+		var randomOutputArr = [];
+		for(var i = 0; i < arr.length; i++){
+			randomOutputArr.push(anotherFunction(arr[i]));
+		}
+		return randomOutputArr;
+	}
+	
+	- allows us to pass in different functions to perform different operations. for example, rather than have a function that parses an array, does multiple calculations and returns multiple result sets to be parsed out,
+	the function can perform one operation at a time and return one result set. (more readable and logical in my opinion. dont have to change the parent function at all, just need to create a new function whenever you want
+	a new calculation to be done.)
+	
+FUNCTIONS RETURNING OTHER FUNCTIONS AKA FIRST CLASS FUNCTIONS:
+
+	- exactly what it sounds like, define a function inside of another function that can be used independently
+		Ex. 
+		
+		function interviewQuestion(job){
+			if(job === 'designer'){
+				return function(name){
+					console.log(name + ', can you please explain what UX design is?');
+				}
+				//you can add other cases here if you need to
+			}else{
+				return function(name){
+					console.log('Hello ' + name + '. What do you do?');
+				}
+			}
+		}
+		
+		var designerQuestion = interviewQuestion('designer');
+		designerQuestion('Spongebob'); 
+		***the designer question function gets saved to the designerQuestion variable. this allows you to use the designerQuestion function and pass it the 
+		value it is looking for as a parameter.
+		
+		Can also nest values in function calls
+			Ex. interviewQuestion('designer')('Mark');
+			will return "Mark, can you please explain what UX design is?"
+			
+IMMEDIATELY INVOKED FUNCTION EXPRESSIONS - IIFE
+
+	MAINLY USED FOR DATA PRIVACY - implement the function and it will run immediately, no calling it anywhere else in the code
+	Could be used for initialization? For example pass in creds for a Database and connect to the DB and pull desired data to be displayed on startup?
+	Ex.
+		(function (argument){
+			...do_something;
+		}}(passed_argument);
+		
+			-the above function will run immediately and will use whatever the argument is that is passed to it.
+		
+CLOSURES - ***VERY IMPORTANT***
+
+	- summary - an inner function always has access to variables/params of outer function, even after the outer function has returned
+	Ex. A method to create generic functions based on input
+		function interviewQuestions(job){
+			return function(name){
+				if(job === 'teacher')
+					console.log(name + ', what do you teach?');
+				else if(job === 'designer')
+					console.log(name + ', what do you design?');
+				else if(job === 'artist')
+					console.log(name + ', what do you create?');
+				else
+					console.log(name + ', what do you do?');
+				}
+		}
+
+		var teacherInterviewQuestions = interviewQuestions('teacher');
+		teacherInterviewQuestions('Ron');
+		interviewQuestions('teacher')('Zawn');
+		var designerInterviewQuestions = interviewQuestions('designer');
+		designerInterviewQuestions('John');
+		var artistInterviewQuestions = interviewQuestions('artist');
+		artistInterviewQuestions('Vaughn');
+		var noJobInterviewQuestions = interviewQuestions('random');
+		noJobInterviewQuestions('Sean');
+		interviewQuestions('random')('Pawn');
+		
+BIND, CALL, and APPLY:
+
+	- can use these functions to allow objects to borrow functions from other objects.
+	- also can use these to predetermine arguments for each function to change behavior based on some sort of criteria (without having to do some sort of conditional)
+	
+	- when using CALL, that will replace the "this" values with the values of the passed in object.
+		EX: john.presentation.call(emily, 'formal', 'afternoon');
+			This will pass the values for emily into the "this" and run the function using the 'formal' and 'afternoon' parameters.
+			
+	- rather than immediately calling an object function using CALL, BIND allows to save a function to a variable 
+	including an object for "this" to refer to, and the ability to pass in arguments before the new 
+	function is called.
+		EX: var johnFriendly = john.presentation.bind(john, 'friendly');
+			johnFriendly('morning');
+				This will pass the values inside of the "john" object to the "this" object, and will preload the function with the
+				"friendly" argument. Now each call of the function will always be "friendly" and will only need one more argument to run,
+				which is the timeOfDay.
+
+ 
