@@ -1,0 +1,59 @@
+******************************************************************************
+large budget app project - more advanced JS									 *
+******************************************************************************
+
+steps to begin this/future apps:
+
+	- add event handlers
+	- get input values
+	- add new items to the data structure (would probably be a DB in the future) (back end)
+	- add new items to the UI
+	- calculate the budget (middleman calculations)
+	- update the UI (front end)
+
+MODULES:
+	
+	-important aspect of any big application architecture
+	- keeps units of code separated and organized
+	-encapsulates some data privately and some stays public
+	
+		EX:
+			UI module:
+				get input values
+				add new items to UI
+				update UI
+			
+			Data module:
+				add new item to our data structure
+				calculate budget
+			
+			controller module
+				add event handlers
+				
+ENCAPSULATION - CREATING AN API
+
+	- creating a module that is only accessed by some public functions, everything else happens under the hood
+	
+Separation of concerns:
+	- each module exists with no knowledge of other modules ie they are not dependent on each other (aka loose coupling in java)
+	
+CREATION OF AN OBJECT OF CONSTANT STRINGS:
+
+	a "DOM" object. if you are doing selections on multiple elements within the webpage, it can help to create an object with variables containing all of the strings you are selecting. This makes it so that, rather than having to go
+	to every single reference of a certain String if any of them need to be changed, you can just change the variable value and in turn it will update all of the areas the variable is used.
+		-can be shared between different controllers
+
+METHOD TO EXPOSE CONTROLLER FUNCTIONS FOR PUBLIC USE:
+
+	- controllers will always be immediately called, so you will need to return the functions from the lower level controllers that you want
+	your higher level controllers to use:
+		Ex. in a controller that uses a UIController and an ObjectController, if you want to interact with the object controller you would have to expose it by declaring
+		a function like this:
+			return {
+				functionName: function(){
+				
+				}
+			}
+			
+			now, when the object controller is passed into the higher level controller, the higher level controller will be able to reference that function, but nothing else inside of the 
+			object controller.
