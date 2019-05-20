@@ -18,11 +18,8 @@
     10.display user score in the console
 */
 
-var userScore = 0;
+( function () {
 
-function displayUserScore(){
-    console.log('User Score is: ' + userScore);
-}
 
 var Question = function(question, answers, correctAnswer){
     this.question = question;
@@ -30,6 +27,48 @@ var Question = function(question, answers, correctAnswer){
     this.correctAnswer = correctAnswer;
 };
 
+Question.prototype.displayQuestion = function(){
+    console.log(this.question);
+    for(var i = 0; i < this.answers.length; i++){
+        console.log((i + 1) + ' - ' + this.answers[i]);
+    }
+}
+
+Question.prototype.checkAnswer = function(answer, scoreFunc) {
+    var sc;
+    if(parseInt(answer) === this.correctAnswer){
+        console.log('Correct answer, great job!');
+        sc = scoreFunc(true);
+        this.displayScore(sc);
+    }else{
+        console.log('Wrong answer, very bad job.');
+        sc = scoreFunc(false);
+        this.displayScore(sc);
+    }
+    
+    nextQuestion();
+}
+
+//rather than define a global score variable, this allows for the score
+//to be tracked during the duration of the game while being inside of the scope of the 
+//immediately called function
+function trackScore() {
+    var score = 0;
+    return function correctAnswer(correct){
+        if(correct){
+            score++;
+        }
+        return score;
+    }
+}
+    
+var currentScore = trackScore();
+
+Question.prototype.displayScore = function(score){
+    console.log('Current player score is: ' + score);
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+}
+    
 function getRandomQuestion(questions){
     return questions[Math.floor(Math.random() * questions.length)];
 }
@@ -45,29 +84,27 @@ questions.push(new Question('what is the best programming language?',
 questions.push(new Question('what is the best season?',
                            ['spring', 'summer', 'fall'],
                            2));
-
-(function askRandomQuestion(){
+function nextQuestion(){
+        
     var currentQuestion = getRandomQuestion(questions);
-    console.log(currentQuestion.question);
-    for(var i = 0; i < currentQuestion.answers.length; i++){
-        console.log((i + 1) + ' - ' + currentQuestion.answers[i]);
-    }
+    currentQuestion.displayQuestion();
     
     var userAnswer = prompt('Please select the correct answer! Enter \'exit\' if you would like to quit!');
     
-    if(userAnswer == 'exit'){
-        console.log('Thanks for playing!');
-    }else if(userAnswer == currentQuestion.correctAnswer){
-        console.log('Correct answer, great job!');
-        userScore++;
-        displayUserScore();
-        askRandomQuestion();
-    }else{
-        console.log('Wrong answer, very bad job.');
-        displayUserScore();
-        askRandomQuestion();
-    }
+    if(userAnswer !== 'exit')
+        currentQuestion.checkAnswer(userAnswer, currentScore);
+    else
+        console.log('thanks for playing! :)');
+    
+}
+    
+nextQuestion();
+
 })();
+
+
+
+
 
 
 
