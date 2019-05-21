@@ -1,0 +1,112 @@
+******************************************************************************
+next generation js - intro to es6 and es 2015								 *
+******************************************************************************
+
+whats new in ES6/ES2015???
+
+	-variable declarations with let and const
+	-blocks and iifes
+	-strings
+	-arrow functions
+	-destructuring
+	-arrays
+	-the spread operator
+	-rest and default parameters
+	-maps
+	-classes/subclasses
+	
+VARIABLES
+
+	- declared with VAR in ES5 - function scoped
+	- declared with LET and CONST in ES6 - block scoped
+		- what is block scope??? that is all of the code in between curly braces
+			ex.
+			function driversLicense6(passedTest){
+    
+				if(passedTest){
+					let firstName = 'john';
+					const yearOfBirth = 1990;
+				}
+ 
+            console.log(firstName + ' ' + yearOfBirth +
+                   ' can drive now.');
+			}
+
+			driversLicense6(true);
+			- the log will be unsuccessful because the scope of "firstName" and "yearOfBirth" only extends to inside of
+			the curly braces of the "if" statement.
+				- if you replaced "let" and "const" with "var" that would work properly because var is accessible by anything in the scope of the function
+				- also declaring the "firstName" and "yearOfBirth" variables OUTSIDE of the if and setting the values INSIDE of the if would fix the issue as the scope of the variables would now be 
+				accessible by the console.log
+				
+ANOTHER LET BLOCK SCOPE EXAMPLE:
+
+	let i = 23;
+
+	for(let i = 0; i < 10; i++){
+		console.log(i);
+	}
+
+	console.log(i);
+	
+		- This output will look like 0 to 9 and then 23. That is because the initial "let i = 23" only exists in the block scope OUTSIDE 
+		of the FOR LOOP. Whereas the "let i = 0" is defined INSIDE of the FOR LOOP and can only be modified INSIDE of the for loop.
+
+ES6 DATA PRIVACY - USING A BLOCK
+
+	- all you need to do is put a pair of curly braces where you want your block
+		- an alternative to using an IIFE (don't think there's even a use case now for using an IIFE)
+		
+STRING LITERALS - way better way of printing out strings in JS
+
+	- rather than console.log(variableName + ' ' + variableName2 + ' hello ' + variableName3);
+		- you can print console.log(`${variableName} ${variableName2} hello ${variableName3}`);
+			(NOT USING THE SINGLE QUOTES like '', THESE USE THE BACK QUOTES ``)
+			
+ARROW FUNCTIONS - an easier way of writing out a function, kinda reminds me of the ternary operator
+
+	ex: say we have this function to parse through an array of years and do something to them:
+		var ages5 = years.map(function(current){
+			return 2016 - current;
+		});
+		console.log(ages5);
+		
+		SAME FUNCTION USING AN ARROW FUNCTION (way more compact as you can tell):
+			let ages6 = years.map(current => 2016 - current);
+			console.log(ages6);
+		
+		CAN ALSO CREATE MULTI LINE ARROW FUNCTIONS:
+			- if you add more parameters youll have to add parentheses, add more lines you'll have to add curly braces and specify what is being returned
+			ages6 = years.map((current, index) => {
+				const now = new Date().getFullYear();
+				const age = now - current;
+				return `Age element ${index + 1}: ${age}`;
+			});
+			console.log(ages6);
+			
+	- ARROW FUNCTIONS DO NOT HAVE THEIR OWN "THIS" KEYWORD. THEY SHARE THE SURROUNDING "THIS" KEYWORD. They have a lexical "this" variable
+		ex. THIS WONT WORK
+			function Person(name){
+				this.name = name;
+			}
+			
+			Person.prototype.myFriends5 = function(friends){
+    
+				var arr = friends.map(function(current){
+					return this.name + ' is friends with ' + current;
+				});
+    
+				console.log(arr);
+			}
+			
+				WHY??? 'this' keyword only recognizes the scope of the "myFriends5" function. it won't be able to access 'this' keyword of the Person object!
+				
+			This however, will work.
+			
+			Person.prototype.myFriends6 = function(friends){
+				var arr = friends.map(current => `${this.name} is friends with ${current}`);
+				console.log(arr);
+			}
+			
+				WHY??? because it is in an arrow function, the 'this' keyword shares the surround 'this' keyword, therefore having access to the name inside of the defined Person object.
+		

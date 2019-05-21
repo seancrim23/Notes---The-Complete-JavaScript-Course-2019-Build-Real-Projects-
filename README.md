@@ -11,4 +11,5 @@ Likely I will be keeping an index for each section of the course with my corresp
 <li>javascript_in_the_browser_DOM_manip_and_events</li>
 <li>advanced javascript - objects_and_functions</li>
 <li>large budget app project - more advanced javascript</li>
+<li>next gen javascript - intro to ES6 / ES2015</li>
 </ol>
