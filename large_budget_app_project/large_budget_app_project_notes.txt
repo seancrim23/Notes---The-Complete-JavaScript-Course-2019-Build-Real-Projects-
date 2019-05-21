@@ -57,3 +57,28 @@ METHOD TO EXPOSE CONTROLLER FUNCTIONS FOR PUBLIC USE:
 			
 			now, when the object controller is passed into the higher level controller, the higher level controller will be able to reference that function, but nothing else inside of the 
 			object controller.
+
+EVENT DELEGATION:
+	
+	Event Bubbling: when an event is fired on a button, but also fires on all parent elements in the DOM (bubbles up inside the DOM tree)
+		EVENT DELEGATION: is placing an event handler on a higher element in the DOM tree and waiting for the event to fire in a child element. the 
+		event then will travel up the DOM tree and fire the higher placed event handler.
+			WHY??? 
+				-when we have element with a lot of child elements, instead of adding handler to every single child, add to parent and determine which child will end up firing the
+				parent handler
+				-when we want a handler on an element that is not yet in the DOM when the page loads (in this case it would be expenses or income, these have to be added by the user
+				and do not exist when the page loads)
+	
+DOM TRAVERSING:
+
+	- moving up and down the DOM after something happens to an element in the DOM (either go up to parent of element or go down into children of element)
+
+REMOVING ELEMENTS FROM AN ARRAY:
+
+	- use the SPLICE method
+		find the index of an array element that you want to delete -> run splice from that index to one element over
+			data.allItems[type].splice(index, 1); -> deletes one array element starting from the index and going one over
+
+Nodelist:
+	
+	returned when a list of elements from the DOM are returned. they are not strings but rather NODES
