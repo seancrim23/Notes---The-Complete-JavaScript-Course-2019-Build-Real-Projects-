@@ -1,0 +1,66 @@
+******************************************************************************
+asynchronous javascript														 *
+******************************************************************************
+
+What do we mean by SYNCHRONOUS???
+	- all lines of javascript get executed one after another, line by line like they are written in the code.
+	
+What do we mean by ASYNCHRONOUS???
+	-code that runs separate to other code in a Javascript file
+		-runs in "background"
+		- we pass callbacks that run when the async piece has finished its work
+		-moves on immediately after firing. we do not wait for function to finish to move on!!
+			EX. function to load an image to a webpage... it has to be asynchronous because it could ruin an entire website
+			if it had to wait for the image to load before doing anything else
+	
+FIRST ASYNCHRONOUS EXAMPLE:
+	
+	- running a line of code that will actually execute seconds after being called:
+		const second = () => {
+            setTimeout(() => {
+                console.log('whats up async!!!');
+            }, 2000);
+        }    
+		
+EVENT LOOP
+
+	- part of the javascript context that waits for callbacks to be pushed to the message queue. Once the execution context stack is
+	empty, the event loop will then run each of the callbacks that are inside of the message queue.
+		- basically all of these callbacks are messages/etc from asynchronous calls.
+			ex. const second = () => {
+					setTimeout(() => {
+					console.log('whats up async!!!');
+				}, 2000);
+				}   
+						
+			- the callback function that logs ('whats up async') will be moved to the message queue once the timer has completed
+			its 2 second count
+
+WEB APIS
+
+	- asynchronous calls like setTimeout(), DOM Events, and XMLHttpRequests run here. after these run, whatever the callback method is will get stored in 
+	the message queue to be added to the execution context by the event loop once the execution context is empty
+		ex. const second = () => {
+				setTimeout(() => {
+				console.log('whats up async!!!');
+			}, 2000);
+			}   
+		
+		- the setTimeout() function will run for the 2 seconcds that it is supposed to inside of the Web APIs space. another example of this would be DOM event listeners waiting
+		here for an event to occur, then the callback function would get added to the message queue to ultimately be picked up by the event loop and moved to the execution context for
+		execution.
+
+MESSAGE QUEUE
+
+	- this queue stores the callback functions that are moved from the web apis when the web api functionalities are completed. The callbacks then
+	wait to be picked up by the event loop when the execution context is empty.
+		ex. const second = () => {
+				setTimeout(() => {
+				console.log('whats up async!!!');
+			}, 2000);
+			}  
+			
+		- in this situation, the timer will run for 2 seconds. when the timer completes, the callback function will then move to the message queue to wait
+		to be picked up by the event loop and executed in the execution context
+
+	
