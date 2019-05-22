@@ -238,6 +238,8 @@ CLASSES IN ES6 JAVASCRIPT:
 				}
 			}
 			
+REDO OLDER CHALLENGES OF ES5 TO ES6!!!
+			
 	
 		
 
