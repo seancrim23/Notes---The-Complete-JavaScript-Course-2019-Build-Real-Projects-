@@ -109,4 +109,137 @@ ARROW FUNCTIONS - an easier way of writing out a function, kinda reminds me of t
 			}
 			
 				WHY??? because it is in an arrow function, the 'this' keyword shares the surround 'this' keyword, therefore having access to the name inside of the defined Person object.
+
+USING "FROM" WITH ARRAYS:
+
+	- Given we select multiple HTML nodes using "querySelectorAll"
+		- we used to have to make use of "slice" to store the nodeList to an ARRAYS
+			Ex. var boxesArr5 = Array.prototype.slice.call(boxes);
+			boxesArr5.forEach(function(current){
+				current.style.backgroundColor = 'dodgerblue';
+			});
+			
+			NOW we can just use "from" and use an arrow function to do the entirety of the above in one line.
+			
+			Ex. Array.from(boxes).forEach(current => current.style.backgroundColor = 'dodgerblue');
+			
+Easier Way to loop through array using ES6 - (very similar to looping through a list in Java like for(String string : stringList)):
+
+	- old way
+		-for(var i = 0; i < array.length; i++){
+			...do_something;
+		}
+	- new way
+		-for(const cur of array){
+			...do_something(cur);
+		}
+		
+SPREAD OPERATOR - rather than passing individual arguments to a function, you can just pass an array using the spread operator
+
+	ex. original way to do it:
+		function addFourAges (a, b, c, d){
+			return a + b + c + d;
+		}
+
+		var sum1 = addFourAges(1, 2, 3, 4);
+		console.log(sum1);
+		
+		WITH THE SPREAD OPERATOR WE CAN DO THIS:
+		
+		var ages = [1, 2, 3, 4, 5];
+		var sum2 = addFourAges(...ages); - "..." is the spread operator. it spreads the array "ages" to the four arguments of the function!
+		console.log(sum2); This logs the same thing as the console log a few lines up!
+
+REST PARAMETER - SAME IMPLEMENTATION AS SPREAD OPERATOR
+
+	Can take a list of function arguments and automatically put them in array format to be passed into a function:
+	
+		EX. function isFullAge6(...years){
+				console.log(years);
+				years.forEach(current => console.log((2016 - current) >= 18));
+			}
+			isFullAge6(1999, 1995, 1954, 1975, 2001); //this will all be passed into the "isFullAge6" function and 
+													//will be turned into the array "years"
+													
+	- Also you can add parameters before the rest parameter - lets do an example with the above function
+		Say we want to be able to pass in the limit of what is considered "full age":
+		Ex. function isFullAge6(limit, ...years) - easy as that. when the function is called the first argument will be applied to the limit and everything else is stored in "years".
+
+DEFAULT PARAMETERS - we use these whenever we want one or more parameters of a function to be pre-set
+
+	- very simple, when you define a function constructor, just set the parameters that you want default values for
+		Ex. function Object(var1, var2, var3 = 'something', var4)
+			var3 will always have the default value defined UNLESS an object is created with a different value
+			
+CREATING MAPS - VERY IMPORTANT DATA STRUCTURE!!!!
+
+	- a map is basically an array/arraylist made up of key/value pairs. extremely useful!
+	
+	- EXTREMELY USEFUL WAY TO PARSE A MAP!!!
+		mapName.forEach((key, value) => do_something);
+			tons of sophisticated applications will store data inside of maps, therefore this parsing is extremely useful to know how to do
+	
+	-maps are better than objects for creating hashmaps because:
+		- iterable
+		- you can store anything as a key for a map
+		- very easy to get the size of a map with the "size" property
+		- very easy to add and remove data from a map
+		
+CLASSES IN ES6 JAVASCRIPT:
+
+	- a much better way to define an object
+		-we used to use function constructors:
+			var objectName = function(var1, var2,...,varN){
+				this.var1=var1;
+				...
+				this.varN=varN;
+			}
+			
+			objectName.prototype.newMemberFunction = function(){
+				do_something;
+			}
+			
+		-but now we can just define a class!
+			class objectName {
+				//requires a constructor function
+				constructor(var1, var2, ..., varN){
+					this.var1 = var1;
+					...
+					this.varN = varN;
+				}
+				
+				newMemberFunction(){
+					do_something;
+				}
+			}
+			
+			IN MY OPINION, much more readable than the other way of doing it, especially creating the member functions
+			inside of the class rather than assigning them to the object prototype
+	
+	
+	STATIC METHODS - methods attached to the class but NOT inherited by the class instances (not very helpful)
+	
+	CLASS INHERITANCE - WAYYYYYYY EASIER WITH ES6
+	
+		- in ES5 you have to assign the prototype of the super class to the class that you want to inherit the super class, like this:
+			- Athlete5.prototype = Object.create(Person5.prototype);
+				and further functions have to get added to the prototype of the child class! 
+		
+		IN ES6 - you can simply "extend" the super class from the child class:
+			- class Athlete6 EXTENDS Person6 {
+				constructor(PERSON6VAR1, ... , PERSON6VARN, athleteVar1, ..., athleteVarN){
+					super(Person6Var1, ..., Person6VarN); //THIS ALLOWS THE ATHLETE6 CLASS TO INHERIT ALL OF THE MEMBER VARIABLES THAT YOU WANT FROM THE PERSON6 SUPER CLASS! EASY!
+					this.athleteVar1 = athleteVar1; //DO this the same way as usual
+					this.athleteVarN = athleteVarN;
+				}
+				
+				newAthlete6Function(){	//rather than having to add this to the prototype, just add it here! way easier
+					do_something();
+				}
+			}
+			
+	
+		
+
+
 		
