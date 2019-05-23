@@ -23,7 +23,7 @@
         first();*/
         
         //asynchronous calls with callbacks small example
-        function getRecipe() {
+        /*function getRecipe() {
             setTimeout(() => {
                 const recipeId = [12, 122, 321, 5432];
                 console.log(recipeId);
@@ -47,7 +47,109 @@
                 
             }, 1500);
         }
-        getRecipe();
+        getRecipe();*/
+        
+        /*const getIDs = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve([12, 122, 321, 5432]);
+            }, 1000);
+        });
+        
+        const getRecipe = recID => {
+            return new Promise((resolve, reject) => {
+                setTimeout(id => {
+                    const recipe = {
+                        title: 'fresh tomato pasta',
+                        publisher: 'johnay'
+                    };
+                    resolve(recipe);
+                }, 1500, recID);
+            });
+        }
+        
+        const getRelated = publisher => {
+            return new Promise((resolve, reject) => {
+                setTimeout(pub => {
+                    let recipe2 = {
+                        title: 'italian pizza',
+                        publisher: 'jonas'
+                    };    
+                    recipe2.publisher = pub;
+                    resolve(recipe2);
+                }, 1500, publisher); 
+            });  
+        };*/
+        
+        /*getIDs
+        .then(IDs => { //The argument is the product of the successful promise
+            console.log(IDs);
+            return getRecipe(IDs[2])
+        })
+        .then(recipe => {
+            console.log(`Recipe is ${recipe.title} by ${recipe.publisher}.`);
+            return getRelated(recipe.publisher);
+        })
+        .then(recipe => {
+            console.log(recipe);
+        })
+        .catch(error => {
+            console.log(`ERROR! ${error}!`); //we get this because we used "reject"!!!
+        });*/
+        
+        /*async function getRecipesAw(){
+            const IDs = await getIDs;
+            console.log(IDs);
+            const recipe = await getRecipe(IDs[2]);
+            console.log(recipe);
+            const related = await getRelated(recipe.publisher);
+            console.log(related);
+            
+            return recipe;
+        }
+        
+        getRecipesAw()
+        .then(result => console.log(`${result.title} is the best ever!`));*/
+        //https://www.metaweather.com/api/location/2487956/
+        //http://api.icndb.com/jokes/random
+        function getJoke(jokeId){
+            fetch(`http://api.icndb.com/jokes/${jokeId}`)
+            .then(result => {
+                //console.log(result);
+                return result.json();
+            })
+            .then(fetchedData => {
+                //console.log(fetchedData);
+                if(fetchedData.type === 'success'){
+                    console.log(`Joke ${fetchedData.value.id} is ${fetchedData.value.joke}`);
+                }else{
+                    console.log(`Error: ${fetchedData.value}`);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }
+        
+        getJoke(1);
+        getJoke(5);
+        getJoke(7);
+        
+        async function getJokeAsync(jokeId){
+            const result = await fetch(`http://api.icndb.com/jokes/${jokeId}`);
+            const data = await result.json();
+            //console.log(`Async function data: ${data}`);
+            if(data.type === 'success'){
+                console.log(`Async Joke ${data.value.id} is ${data.value.joke}`);
+            }else{
+                console.log(`Async Error: ${data.value}`);
+            }
+        }
+        
+        getJokeAsync(1);
+        getJokeAsync(5);
+        getJokeAsync(7);
+        
+        
         
     </script>
 </body>

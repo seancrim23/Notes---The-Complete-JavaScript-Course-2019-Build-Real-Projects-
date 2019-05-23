@@ -63,4 +63,90 @@ MESSAGE QUEUE
 		- in this situation, the timer will run for 2 seconds. when the timer completes, the callback function will then move to the message queue to wait
 		to be picked up by the event loop and executed in the execution context
 
+CALLBACK HELL - Avoid this!!!
+
+	- this means that you end up having callback inside of callback inside of callback, over and over and over.
+
+PROMISES:
+
+	- WHAT ARE THEY?? an object that keeps track of whether a certain event has happened
+		Then it determines what happens after the event occurs
+		
+	-STATES OF A PROMISE - 
+		PENDING
+			-> EVENT HAPPENS
+				-> SETTLED/RESOLVED
+					->FULFILLED (success)
+					->REJECTED (failure)
+						- we can handle these two situations in our code
+						
+	EX: const getIDs = new Promise((resolve, reject) => {
+        
+        }); 
+		
+		- The resolve and reject inside of the callback function return if the Promise was successful or not.
+	
+	EX: (promises with "then" and "catch" to handle successful and unsuccessful promises)
+	    const getIDs = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                reject([12, 122, 321, 5432]);
+            }, 1000);
+        });
+        
+        getIDs
+        .then(IDs => { //The argument is the product of the successful promise
+            console.log(IDs);
+        })
+        .catch(error => {
+            console.log(error); 
+        });
+		
+			-"THEN" is set up to catch whatever comes from the "resolve", with the IDs being whatever is passed to the "resolve" function
+			-"CATCH" is set up to catch whatever comes from the "reject", with the error being whatever is passed to the "reject" function
+			
+	- Essentially it seems as though one promise will get created to pull data from somewhere. Then, that result can be passed to another promise and repeated until we have all of the data we need.
+	Ideally I believe we should only have ONE promise, even if we can make a chain, but sometimes that's not completely possible
+
+ASYNC/AWAIT:
+	
+	- inside of an ASYNC function, we can have one or more AWAIT expressions
+	
+AJAX
+
+	- ASYCHRONOUS JAVASCRIPT AND XML
+	
+		-can use "FETCH"
+			- fetch can get an API string passed to it and it will run like a promise - goes to then block
+			if it runs successfully, to the catch block if an error returns
+				fetch('apiString')
+				.then(result => {
+					do_something_with_result...
+				})
+				.catch(error => {
+					do_something_with_error...
+				});
+				
+AJAX WITH ASYNC/AWAIT -
+
+	-rather than doing a fetch like above (with the then and catch block) you can use awaits in an async function to turn those block lines to only a few lines:
+		EX. the top can be shortened to:
+			async function doSomething(something){
+				const result = await fetch('apiString');
+				const data = await result.json();
+				//do something with "data"...
+			}
+			
+				To do this above, you would need multiple "then" blocks with each promise you are creating. In this situation,
+				you only need to use "awaits" instead of new "then" blocks each time you are promising
+				
+	- HOW TO CATCH ERRORS!!!
+		- like normal java, you need a "try/catch" block! very similar to normal java!
+			-try{
+				//do something involving promises
+			}catch(error){
+				//do something because of error
+				console.log(error);
+			}
+ 		
+
 	

@@ -13,4 +13,5 @@ Likely I will be keeping an index for each section of the course with my corresp
 <li>large budget app project - more advanced javascript</li>
 <li>next gen javascript - intro to ES6 / ES2015</li>
 <li>asynchronous javascript - promises, async/await, and AJAX</li>
+<li>modern js - using es6, npm, babel, webpack</li>
 </ol>
