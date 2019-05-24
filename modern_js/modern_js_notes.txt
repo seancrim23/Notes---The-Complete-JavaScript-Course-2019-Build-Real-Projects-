@@ -2,3 +2,24 @@
 modern javascript - using es6, npm, babel, and webpack						 *
 ******************************************************************************
 
+MVC - MODEL VIEW CONTROLLER
+
+	- model (data and the application logic) - makes the api calls to pull and handle data
+	
+	- controller - brings the two together so they are not dependent on each other (model and view never have to communicate)
+	
+	- view (gets and displays data from and to the UI ) - displays the results of the action
+
+Defining an export/import:
+
+	-Export - simply use the export keyword followed by a function/variable you want to export:
+		Ex.
+			export const add = (a, b) => a + b;
+			export const multiply = (a, b) => a * b;
+			export const ID = 23;
+			
+	-Import - simply use the import keyword followed by the name you will be saving the import to, the from keyword, and finally
+	the location of the file that contains the export that you want to import.
+		Ex.
+			import string from './models/Search';
+			import { add, multiply, ID } from './views/searchView';
