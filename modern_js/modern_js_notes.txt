@@ -23,3 +23,24 @@ Defining an export/import:
 		Ex.
 			import string from './models/Search';
 			import { add, multiply, ID } from './views/searchView';
+
+CREATING A DATA MODEL (my own observations):
+
+	- every application has a data model
+		-storing data
+		-manipulating data
+			EX. if we are storing information about "People" we want all of the information pertaining to each "People" object
+			to be able to be stored inside of that object (age, height, weight, etc.)
+			- we ALSO need functions for calculating information that we can't just get from the static information being returned from our API call, etc
+				EX. If we only get a birth year but we want an age, we will need a function that will calculate the age of the person within the scope of the object.
+				
+	- models need a controller to be able to take the data from the model and display it on the webpage
+
+HASHCHANGE EVENT:
+
+	- when a URL changes its HASH, a HASH CHANGE event is fired.
+		Ex. when localhost:8080/#12345 changes to localhost:8080/#54321, an event is fired
+		
+THE EVAL FUNCTION:
+
+	-
