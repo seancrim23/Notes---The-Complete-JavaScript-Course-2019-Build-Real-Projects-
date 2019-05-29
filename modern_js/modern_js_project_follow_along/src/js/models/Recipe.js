@@ -14,7 +14,6 @@ export default class Recipe {
             this.img = res.data.recipe.image_url;
             this.url = res.data.recipe.source_url;
             this.ingredients = res.data.recipe.ingredients;
-            console.log(res);
         } catch (error){
             console.log(error);
         }
@@ -34,6 +33,7 @@ export default class Recipe {
     parseIngredients(){
         const unitsLong = ['tablespoons', 'tablespoon', 'ounce', 'ounces', 'teaspoon', 'teaspoons', 'cups', 'pounds'];
         const unitsShort = ['tbsp', 'tbsp', 'oz', 'oz', 'tsp', 'tsp', 'cup', 'pound'];
+        const units = [...unitsShort, 'kg', 'g'];
         
         const newIngredients = this.ingredients.map(current => {
             //uniform units
@@ -47,11 +47,28 @@ export default class Recipe {
             
             //parse ingredients into count, unit, and ingredient
             const arrIng = ingredient.split(' ');
-            const unitIndex = arrIng.findIndex(cur => unitsShort.includes(cur));
+            const unitIndex = arrIng.findIndex(cur => units.includes(cur));
             
             let ingObj;
             if(unitIndex > -1){
                 //there is a unit
+                //4 1/2 cups, arrCount is [4, 1/2]
+                //ex 4 cups, arrCount is [4]
+                const arrCount = arrIng.slice(0, unitIndex);
+                
+                let count;
+                if(arrCount.length === 1){
+                    count = eval(arrIng[0].replace('-', '+'));
+                } else {
+                    count = eval(arrIng.slice(unitIndex).join('+'));
+                }
+                
+                ingObj = {
+                    count,
+                    unit: arrIng[unitIndex],
+                    ingredient: arrIng.slice(unitIndex + 1).join(' ')
+                }
+                
             } else if(parseInt(arrIng[0], 10)){
                 //there is no element, but first element is number
                 ingObj = {
@@ -71,5 +88,17 @@ export default class Recipe {
             return ingObj;
         });
         this.ingredients = newIngredients;
+    }
+    
+    updateServings(type) {
+        //servings
+        const newServings = type === 'dec' ? this.servings - 1 : this.servings + 1;
+        
+        //ingredients
+        this.ingredients.forEach(ing => {
+            ing.count *= (newServings / this.servings); 
+        });
+        
+        this.servings = newServings;
     }
 };

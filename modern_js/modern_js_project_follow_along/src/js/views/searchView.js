@@ -20,6 +20,15 @@ const createButton = (page, type) => `
     </button>
 `;
 
+export const highlightSelected = id => {
+    const resultsArr = Array.from(document.querySelectorAll('.results__link'));
+    resultsArr.forEach(current => {
+        current.classList.remove('results__link--active'); 
+    });
+    
+    document.querySelector(`.results__link[href*="${id}"]`).classList.add('results__link--active');
+};
+
 export const clearResButtons = () => {
     elements.searchResPages.innerHTML = '';
 };
@@ -63,7 +72,7 @@ acc: 5 / 5 + cur.length = 9/ newTitle = ['Pasta', 'with']
 acc: 9 / 9 + cur.length = 15/ new Title = ['Pasta', 'with', 'tomato']
 acc: 15 / 15 + cur.length = 18 / newTitle = ['Pasta', 'with', 'tomato']
 */
-const limitRecipeTitle = (title, limit = 17) => {
+export const limitRecipeTitle = (title, limit = 17) => {
     const newTitle = [];
     if(title.length > limit){
         title.split(' ').reduce((acc, cur) => {

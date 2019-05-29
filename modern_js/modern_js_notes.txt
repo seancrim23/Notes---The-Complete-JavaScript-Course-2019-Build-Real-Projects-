@@ -41,6 +41,13 @@ HASHCHANGE EVENT:
 	- when a URL changes its HASH, a HASH CHANGE event is fired.
 		Ex. when localhost:8080/#12345 changes to localhost:8080/#54321, an event is fired
 		
-THE EVAL FUNCTION:
+THE MODEL/VIEW RELATIONSHIP
 
-	-
+	- usually when defining some sort of data that is to be displayed on a site we need two things:
+		- a model (this will store the data that will be displayed on the site and will also hold functions to modify the data as needed)
+		- the viewer (this will work with the model (BUT NOT BE DEPENDENT ON IT) to essentially link the data to the UI)
+			- by linking i mean adding it to the UI, deleting it from the UI, etc.
+			- template strings come in VERY handy for this
+				- essentially we can define a template string that is made up of HTML code, inject our model data into that code, and
+				then render that HTML code on the webpage itself
+	- EACH MODEL VIEW WILL HAVE A CONTROLLER THAT TIES THEM TOGETHER (BUT KEEPS THEM SEPARATE)
