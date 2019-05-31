@@ -1,0 +1,21 @@
+******************************************************************************
+node crash course															 *
+******************************************************************************
+
+	- JS runtime built on the v8 engine
+	- A popular way of using js outside of the browser, can create web servers and backends	
+	-node JS is parsed in the V8 engine from Google
+	
+NODE GIVES ACCESS TO THINGS THAT NORMAL JS DOES NOT:
+
+	- file system
+	- http calls
+	
+READING A FILE WITH NODE IS AS EASY AS:
+
+	const fs = require('fs'); //usually name the variables the same as their library
+	const json = fs.readFileSync(`${__dirname}/data/data.json`, 'utf-8');
+
+
+
+		
